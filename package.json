@@ -1,0 +1,22 @@
+{
+  "name": "graviton-cli",
+  "version": "0.0.2",
+  "description": "A Graviton CLI to interact with plugins and detect updates.",
+  "main": "./bin/main.js",
+  "author": "Marc Espín",
+  "license": "ISC",
+  "bin": {
+    "graviton": "./bin/main.js"
+  },
+  "preferGlobal": true,
+  "dependencies": {
+    "appdata-path": "^1.0.0",
+    "fs": "0.0.1-security",
+    "nodegit": "^0.24.3",
+    "npm": "^6.10.2",
+    "octonode": "^0.9.5",
+    "path": "^0.12.7",
+    "request": "^2.88.0",
+    "rimraf": "^2.6.3"
+  }
+}
