@@ -27,3 +27,12 @@ It comes prebuilt in graviton, but you can install it via:
 ## Updating Plugins
 
 > $ graviton --update RepoOwner/RepoName
+
+
+## Contributing
+
+> $ git clone https://github.com/Graviton-Code-Editor/graviton-cli.git
+
+> $ cd graviton-cli
+
+> $ npm install -g .
