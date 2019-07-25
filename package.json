@@ -8,6 +8,13 @@
   "bin": {
     "graviton": "./bin/main.js"
   },
+  "keywords": [
+    "Graviton",
+    "Editor",
+    "cli",
+    "open source",
+    "terminal"
+  ],
   "preferGlobal": true,
   "dependencies": {
     "appdata-path": "^1.0.0",

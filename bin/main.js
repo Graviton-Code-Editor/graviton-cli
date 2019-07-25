@@ -48,9 +48,9 @@ const message = (type, text) => {
   }
 }
 getConfig(function(config) {
-  if (config.build == undefined || parseInt(config.build) < 190725) {
+  if (config.build == undefined || parseInt(config.build) < 190724) {
     message(
-      "error",
+      "warn",
       "This CLI needs the last Graviton version, v1.0.3 (might not be released yet). You have the build " +
         config.build +
         " ."
@@ -66,20 +66,59 @@ if (!fs.existsSync(dot_graviton)) {
 
 const help = `
 
-	--help
-	-v
-	-i / --install + Owner/RepoName
-	-u / --uninstall + PluginName
-	--update + Ownser/RepoName
+--help (Show all commands)
+  
+-v ( Show the installed Graviton version and its' build)
+ 
+-l / --list (List all the installed plugins & themes of Graviton)
+
+-m / --market (List all the installed plugins & themes of Graviton)
+  
+-i / --install + Owner/RepoName ( Install a plugin directly from the repository)
+ 
+-u / --uninstall + PluginName (Uninstall an installed plugin)
+
+--update + Ownser/RepoName (Update a plugin)
+  
 
 `
+
+
+const pull = (path, remote, branch, call)=> {
+  let repository;
+  const remoteBranch = remote + '/' + branch;
+  nodegit.Repository.open(path)
+    .then(function (_repository) {
+        repository = _repository;
+        return repository.fetch(remote);
+    }, call)
+    .then(function () {
+        return repository.mergeBranches(branch, remoteBranch);
+    }, call)
+    .then(function (oid) {
+      call(null, oid);
+    }, call);
+};
+
+
 switch (argumentsPass[0]) {
   case "-v":
     getConfig(function(data) {
       message("info", `${data.version} · ${data.build}`)
     })
     break
-  case "list":
+  case "-l":
+  case "--list":
+    let string = "\n"
+    fs.readdir(path.join(dot_graviton, "plugins"), function(err, list) {
+      list.map(function(value, index) {
+        string += `${index} --> ${value} \n`
+      })
+      console.log(string)
+    })
+    break;
+  case "-m":
+  case "--market":
     request(
       "https://raw.githubusercontent.com/Graviton-Code-Editor/plugins_list/master/list.json",
       function(error, response, body) {
@@ -183,25 +222,20 @@ switch (argumentsPass[0]) {
             message("error", `${argumentsPass[1]} is not installed.`)
             return
           }
-          rimraf.sync(path.join(dot_graviton, "plugins", data.name))
-          nodegit
-            .Clone(
-              data.clone_url,
-              path.join(dot_graviton, "plugins", data.name)
-            )
-            .then(function(repository) {
-              request(
-                `https://raw.githubusercontent.com/${data.owner.login}/${data.name}/${data.default_branch}/package.json`,
-                function(error, response, body2) {
-                  const package = JSON.parse(body2)
-                  if (package.dependencies == undefined) {
-                    message(
-                      "success",
-                      `Installed: ${data.name} · ${package.version}`
-                    )
-                    return
-                  }
+          pull(path.join(dot_graviton, "plugins", data.name),'origin',data.default_branch,function(){
+            fs.readFile(
+              path.join(dot_graviton, "plugins",data.name,'package.json'),
+              { encoding: "utf-8" },
+              function(err, data) {
+                const package = JSON.parse(data);
+                if (package.dependencies == undefined) {
                   message(
+                    "success",
+                    `Installed: ${data.name} · ${package.version}`
+                  )
+                  return
+                }
+                message(
                     "info",
                     `Dependencies of: ${package.name} are being installed`
                   )
@@ -226,12 +260,13 @@ switch (argumentsPass[0]) {
                       }
                     }
                   )
-                }
-              )
-            })
+              }
+            )
+          })
         })
     }
     break
   default:
     message("error", "Command not found.\n" + help)
 }
+

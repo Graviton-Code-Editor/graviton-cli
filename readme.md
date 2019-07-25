@@ -13,11 +13,17 @@ A Graviton CLI to interact with plugins and detect updates.
 
 > $ graviton -v
 
+### List installed plugins
+
+> $ graviton -l
+
+### List market
+
+> $ graviton -m
 
 ###Installing Plugins
 
 > $ graviton -i RepoOwner/RepoName
-
 
 ### Uninstalling Plugins
 
