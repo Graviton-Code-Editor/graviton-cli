@@ -97,7 +97,7 @@ switch(argumentsPass[0]){
                            return repository.getMasterCommit();
                 }).then(commit => {
                            return commit.getEntry("README.md");
-                }).then(package => {
+                }).then(body2 => {
 		           const package = JSON.parse(body2)
 		           if(package.dependencies==undefined){
 		           	message('success',`Installed: ${data.name} · ${package.version}`);
