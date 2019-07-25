@@ -93,8 +93,11 @@ switch(argumentsPass[0]){
     		if (fs.existsSync( path.join(dot_graviton,"plugins",data.name))) {
 			    message('success',`${data.name} is already installed.`)
 			}
-    		nodegit.Clone(data.clone_url, path.join(dot_graviton,"plugins",data.name)).then(function(repository) {
-		        request(`https://raw.githubusercontent.com/${data.owner.login}/${data.name}/${data.default_branch}/package.json`, function (error, response, body2) {
+    		nodegit.Clone(data.clone_url, path.join(dot_graviton,"plugins",data.name)).then(repository => {
+                           return repository.getMasterCommit();
+                }).then(commit => {
+                           return commit.getEntry("README.md");
+                }).then(package => {
 		           const package = JSON.parse(body2)
 		           if(package.dependencies==undefined){
 		           	message('success',`Installed: ${data.name} · ${package.version}`);
