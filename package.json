@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "description": "A Graviton CLI to interact with plugins and detect updates.",
   "main": "./bin/main.js",
-  "author": "Marc Espín",
-  "license": "ISC",
+  "author": "Marc Espin",
+  "license": "MIT",
   "bin": {
     "graviton": "./bin/main.js"
   },

@@ -5,7 +5,7 @@ const github = require('octonode')
 const client = github.client() 
 const getAppDataPath = require('appdata-path');
 const path  = require("path");
-const fs = require("fs"); // Or `import fs from "fs";` with ESM
+const fs = require("fs");
 const rimraf = require("rimraf")
 const npm = require('npm')
       
@@ -16,8 +16,6 @@ const getConfig = (callback)=>{
 	    return callback(JSON.parse(data));
 	});
 }
-
-
 
 let argumentsPass = (()=>{
 	return(
@@ -46,6 +44,12 @@ const message= (type,text)=>{
 		break;
 	}
 }
+getConfig(function(config){
+ 	if(config.build==undefined || parseInt(config.build) < 190725){
+		message('error','This CLI needs the last Graviton version, v1.0.3 (might not be released yet). You have the build '+config.build+" .")
+		return;
+	}
+});
 
 if (!fs.existsSync( dot_graviton)) {
     message('error','Graviton is not installed!')
@@ -90,6 +94,9 @@ switch(argumentsPass[0]){
 			return;
 		}
     	client.repo(argumentsPass[1]).info(function(err,data){
+    		if(err){
+    			message('error','Cannot find the type plugin.')
+    		}
     		if (fs.existsSync( path.join(dot_graviton,"plugins",data.name))) {
 			    message('success',`${data.name} is already installed.`)
 			}
@@ -136,6 +143,9 @@ switch(argumentsPass[0]){
 			break;
 			default:
 				client.repo(argumentsPass[1]).info(function(err,data){
+					if(err){
+		    			message('error','Cannot find the type plugin.')
+		    		}
 					if (!fs.existsSync( path.join(dot_graviton,"plugins",data.name))) {
 					    message('error',`${argumentsPass[1]} is not installed.`)
 				    	return;

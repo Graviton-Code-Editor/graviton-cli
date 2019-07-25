@@ -1,5 +1,7 @@
 # Graviton CLI
 
+[![MadeForGraviton](https://raw.githubusercontent.com/Graviton-Code-Editor/website/master/src/badges/made_for_graviton.svg?sanitize=true)](https://github.com/Graviton-Code-Editor/Graviton-App)
+
 A Graviton CLI to interact with plugins and detect updates.
 
 
@@ -31,4 +33,5 @@ A Graviton CLI to interact with plugins and detect updates.
 
 > $ cd graviton-cli
 
+(Might require root permissions, in that case run it in sudo)
 > $ npm install -g .
