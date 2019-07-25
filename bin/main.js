@@ -96,7 +96,7 @@ switch(argumentsPass[0]){
     		nodegit.Clone(data.clone_url, path.join(dot_graviton,"plugins",data.name)).then(repository => {
                            return repository.getMasterCommit();
                 }).then(commit => {
-                           return commit.getEntry("README.md");
+                           return commit.getEntry("package.json");
                 }).then(body2 => {
 		           const package = JSON.parse(body2)
 		           if(package.dependencies==undefined){
