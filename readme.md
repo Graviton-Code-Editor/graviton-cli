@@ -14,7 +14,7 @@ A Graviton CLI to interact with plugins and detect updates.
 > `$ graviton -v`
 
 
-###Installing Plugins
+### Installing Plugins
 
 > `$ graviton -i RepoOwner/RepoName`
 
