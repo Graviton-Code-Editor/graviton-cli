@@ -177,7 +177,7 @@ switch (argumentsPass[0]) {
           )
           npm.load(
             {
-              prefix: path.join(dot_graviton, "plugins", package_json["folder"])
+              prefix: path.join(dot_graviton, "plugins", package_json["name"])
             },
             function(er) {
               if (er) return er
@@ -244,7 +244,7 @@ switch (argumentsPass[0]) {
                       prefix: path.join(
                         dot_graviton,
                         "plugins",
-                        package["folder"]
+                        package["name"]
                       )
                     },
                     function(er) {
@@ -269,4 +269,3 @@ switch (argumentsPass[0]) {
   default:
     message("error", "Command not found.\n" + help)
 }
-

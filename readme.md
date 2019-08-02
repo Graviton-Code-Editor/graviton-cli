@@ -2,6 +2,10 @@
 
 [![MadeForGraviton](https://raw.githubusercontent.com/Graviton-Code-Editor/website/master/src/badges/made_for_graviton.svg?sanitize=true)](https://github.com/Graviton-Code-Editor/Graviton-App)
 
+### Installing
+
+> $ npm install graviton-cli -g
+
 A Graviton CLI to interact with plugins and detect updates.
 
 
@@ -34,6 +38,8 @@ A Graviton CLI to interact with plugins and detect updates.
 > $ graviton --update RepoOwner/RepoName
 
 ### Contributing
+
+Runing it from the source:
 
 > $ git clone https://github.com/Graviton-Code-Editor/graviton-cli.git
 
