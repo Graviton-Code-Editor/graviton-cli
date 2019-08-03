@@ -270,20 +270,28 @@ switch (argumentsPass[0]) {
     if(fs.existsSync(path.join(process.cwd(),argumentsPass[0]))){
       switch(process.platform){
         case "win32":
-          var exec = require("child_process").exec;
-          console.log(`${path.join(getAppDataPath(),"..","Local","Programs","Graviton","Graviton.exe").replace(/\\/g, "\\\\")} ${path.join(process.cwd(),argumentsPass[0])}`)
+          const exec = require("child_process").exec;
           exec(`${path.join(getAppDataPath(),"..","Local","Programs","Graviton","Graviton.exe").replace(/\\/g, "\\\\")} ${path.join(process.cwd(),argumentsPass[0])}`, function (err, stdout, stderr) {
               if (err) {
                   throw err;
               }
-              console.log(stdout)
-          console.log(stderr)
-          
           })            
         break;
         case "linux":
+          const exec = require("child_process").exec;
+          exec(`graviton ${path.join(process.cwd(),argumentsPass[0])}`, function (err, stdout, stderr) {
+              if (err) {
+                  throw err;
+              }
+          }) 
         break;
         case "darwin":
+          const exec = require("child_process").exec;
+          exec(`open graviton ${path.join(process.cwd(),argumentsPass[0])}`, function (err, stdout, stderr) {
+              if (err) {
+                  throw err;
+              }
+          })
         break;
       }
     }else{
