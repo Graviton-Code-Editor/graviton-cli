@@ -8,6 +8,7 @@ const path = require("path")
 const fs = require("fs")
 const rimraf = require("rimraf")
 const npm = require("npm")
+const exec = require("child_process").exec;
 
 const dot_graviton = path.join(getAppDataPath(), ".graviton")
 
@@ -270,7 +271,6 @@ switch (argumentsPass[0]) {
     if(fs.existsSync(path.join(process.cwd(),argumentsPass[0]))){
       switch(process.platform){
         case "win32":
-          const exec = require("child_process").exec;
           exec(`${path.join(getAppDataPath(),"..","Local","Programs","Graviton","Graviton.exe").replace(/\\/g, "\\\\")} ${path.join(process.cwd(),argumentsPass[0])}`, function (err, stdout, stderr) {
               if (err) {
                   throw err;
@@ -278,7 +278,6 @@ switch (argumentsPass[0]) {
           })            
         break;
         case "linux":
-          const exec = require("child_process").exec;
           exec(`graviton ${path.join(process.cwd(),argumentsPass[0])}`, function (err, stdout, stderr) {
               if (err) {
                   throw err;
@@ -286,7 +285,7 @@ switch (argumentsPass[0]) {
           }) 
         break;
         case "darwin":
-          const exec = require("child_process").exec;
+         
           exec(`open graviton ${path.join(process.cwd(),argumentsPass[0])}`, function (err, stdout, stderr) {
               if (err) {
                   throw err;
