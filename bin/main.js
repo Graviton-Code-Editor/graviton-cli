@@ -267,5 +267,26 @@ switch (argumentsPass[0]) {
     }
     break
   default:
-    message("error", "Command not found.\n" + help)
+    if(fs.existsSync(path.join(process.cwd(),argumentsPass[0]))){
+      switch(process.platform){
+        case "win32":
+          var exec = require("child_process").exec;
+          console.log(`${path.join(getAppDataPath(),"..","Local","Programs","Graviton","Graviton.exe").replace(/\\/g, "\\\\")} ${path.join(process.cwd(),argumentsPass[0])}`)
+          exec(`${path.join(getAppDataPath(),"..","Local","Programs","Graviton","Graviton.exe").replace(/\\/g, "\\\\")} ${path.join(process.cwd(),argumentsPass[0])}`, function (err, stdout, stderr) {
+              if (err) {
+                  throw err;
+              }
+              console.log(stdout)
+          console.log(stderr)
+          
+          })            
+        break;
+        case "linux":
+        break;
+        case "darwin":
+        break;
+      }
+    }else{
+      message("error", "Command not found.\n" + help)
+    }
 }

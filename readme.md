@@ -11,31 +11,25 @@ A Graviton CLI to interact with plugins and detect updates.
 
 ### Help command
 
-> $ graviton --help
+> `$ graviton --help`
 
 ### Check the Graviton's version and build
 
-> $ graviton -v
+> `$ graviton -v`
 
-### List installed plugins
 
-> $ graviton -l
+### Installing Plugins
 
-### List market
+> `$ graviton -i RepoOwner/RepoName`
 
-> $ graviton -m
-
-###Installing Plugins
-
-> $ graviton -i RepoOwner/RepoName
 
 ### Uninstalling Plugins
 
-> $ graviton -u PluginName
+> `$ graviton -u PluginName`
 
 ### Updating Plugins
 
-> $ graviton --update RepoOwner/RepoName
+> `$ graviton --update RepoOwner/RepoName`
 
 ### Contributing
 
@@ -43,7 +37,7 @@ Runing it from the source:
 
 > $ git clone https://github.com/Graviton-Code-Editor/graviton-cli.git
 
-> $ cd graviton-cli
+> `$ cd graviton-cli`
 
 (Might require root permissions, in that case run it in sudo)
-> $ npm install -g .
+> `$ npm install -g .`
