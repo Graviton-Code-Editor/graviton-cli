@@ -52,7 +52,7 @@ getConfig(function(config) {
   if (config.build == undefined || parseInt(config.build) < 190724) {
     message(
       "warn",
-      "This CLI needs the last Graviton version, v1.0.3 (might not be released yet). You have the build " +
+      "This CLI needs the last Graviton version, v1.1.0 You have the build " +
         config.build +
         " ."
     )
@@ -196,6 +196,60 @@ switch (argumentsPass[0]) {
         })
     })
     break
+  case "-n":
+  case "--new":
+    switch(argumentsPass[2]){
+      case 'plugin':
+        nodegit
+        .Clone('https://github.com/Graviton-Code-Editor/Plugin-Example', path.join(dot_graviton, "plugins", data.name))
+        .then(function(repo) {
+          return repo.getMasterCommit()
+        })
+        .then(function(commit) {
+          return commit.getEntry("package.json")
+        })
+        .then(function(entryResult) {
+          entry = entryResult
+          return entry.getBlob()
+        })
+        .done(function(blob) {
+          const package_json = JSON.parse(blob.toString())
+          if (package_json.dependencies == undefined) {
+            message(
+              "success",
+              `Installed: ${data.name} · ${package_json.version}`
+            )
+            return
+          }
+          message(
+            "info",
+            `Dependencies of: ${package_json.name} are being installed`
+          )
+          npm.load(
+            {
+              prefix: path.join(dot_graviton, "plugins", package_json["name"])
+            },
+            function(er) {
+              if (er) return er
+              for (const depen in package_json["dependencies"]) {
+                npm.commands.install([depen], function(er, data) {
+                  if (er) return er
+                  message(
+                    "success",
+                    `Installed: ${package_json.name} · ${package_json.version}`
+                  )
+                })
+              }
+            }
+          )
+        })
+      break;
+      default:
+        message("error", "There is nothing to create by name "+argumentsPass[2])
+        return
+
+    }
+  break;
   case "-u":
   case "--uninstall":
     if (argumentsPass[1] == undefined) {

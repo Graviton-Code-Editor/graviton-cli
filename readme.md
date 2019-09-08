@@ -4,7 +4,7 @@
 
 ### Installing & updating
 
-> $ npm install graviton-cli -g
+> `$ npm install graviton-cli -g`
 
 A Graviton CLI to interact with plugins and detect updates.
 
@@ -35,7 +35,7 @@ A Graviton CLI to interact with plugins and detect updates.
 
 Runing it from the source:
 
-> $ git clone https://github.com/Graviton-Code-Editor/graviton-cli.git
+> `$ git clone https://github.com/Graviton-Code-Editor/graviton-cli.git`
 
 > `$ cd graviton-cli`
 

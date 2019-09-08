@@ -1,6 +1,6 @@
 {
   "name": "graviton-cli",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "A Graviton CLI to interact with plugins and detect updates.",
   "main": "./bin/main.js",
   "author": "Marc Espin",
