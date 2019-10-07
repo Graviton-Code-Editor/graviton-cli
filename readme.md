@@ -6,7 +6,7 @@
 
 > `$ npm install graviton-cli -g`
 
-A Graviton CLI to interact with plugins and detect updates.
+A CLI for Graviton to interact with plugins and detect updates.
 
 
 ### Help command
