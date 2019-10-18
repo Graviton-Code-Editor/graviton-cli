@@ -31,6 +31,10 @@ A CLI for Graviton to interact with plugins and detect updates.
 
 > `$ graviton --update RepoOwner/RepoName`
 
+### Basic Plugin template
+
+> `$ graviton --new plugin`
+
 ### Contributing
 
 Runing it from the source:
